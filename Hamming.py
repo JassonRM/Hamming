@@ -98,6 +98,7 @@ def arreglar_hamming(binario,par):
 
 def arreglar_hamming_par(binario):
     conteo_error = 0
+    lista_errores = []
     indice = 0
     binario_ham = []
     while indice<17:
@@ -113,14 +114,19 @@ def arreglar_hamming_par(binario):
     p5 = binario[15]!=calcular_p5(binario_ham,True)
     print([p1,p2,p3,p4,p5])
     if(p1):
+        lista_errores.append(1)
         conteo_error= conteo_error+1
     if (p2):
+        lista_errores.append(2)
         conteo_error = conteo_error + 2
     if(p3):
+        lista_errores.append(3)
         conteo_error = conteo_error + 4
     if(p4):
+        lista_errores.append(4)
         conteo_error = conteo_error + 8
     if(p5):
+        lista_errores.append(5)
         conteo_error = conteo_error + 16
     if(not p1 and not p2 and not p3 and not p4 and not p5):
         return(binario,"Nu hubo error alguno")
@@ -132,15 +138,16 @@ def arreglar_hamming_par(binario):
         if(binario[conteo_error-1]=="1"):
             print("ENTRO ACA1")
             binario[conteo_error-1]="0"
-            return [binario, "Hubo un error en el bit", conteo_error]
+            return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
         else:
             print("ENTRO ACA2")
             binario[conteo_error-1]="1"
-            return [binario, "Hubo un error en el bit", conteo_error]
+            return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
 
 def arreglar_hamming_impar(binario):
     print("NOPAR")
     conteo_error = 0
+    lista_errores = []
     indice = 0
     binario_ham = []
     while indice < 17:
@@ -157,13 +164,18 @@ def arreglar_hamming_impar(binario):
     print([p1, p2, p3, p4, p5])
     if (p1):
         conteo_error = conteo_error + 1
+        lista_errores.append(1)
     if (p2):
         conteo_error = conteo_error + 2
+        lista_errores.append(2)
     if (p3):
         conteo_error = conteo_error + 4
+        lista_errores.append(3)
     if (p4):
         conteo_error = conteo_error + 8
+        lista_errores.append(4)
     if (p5):
+        lista_errores.append(5)
         conteo_error = conteo_error + 16
     if (not p1 and not p2 and not p3 and not p4 and not p5):
         return (binario, "Nu hubo error alguno")
@@ -175,12 +187,12 @@ def arreglar_hamming_impar(binario):
         if (binario[conteo_error - 1] == "1"):
             print("ENTRO ACA1")
             binario[conteo_error - 1] = "0"
-            return [binario, "Hubo un error en el bit", conteo_error]
+            return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
         else:
             print("ENTRO ACA2")
             binario[conteo_error - 1] = "1"
-            return [binario, "Hubo un error en el bit", conteo_error]
+            return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
 def prueba_binario():
-    x=arreglar_hamming(['1', '1', '1', '1', '0', '0', '1', '1', '1', '0', '1', '1', '0', '1', '1', '0', '0'],True)
+    x=arreglar_hamming(['1', '1', '1', '0', '0', '0', '1', '1', '1', '0', '1', '1', '0', '1', '1', '0', '1'],True)
     print(x)
 prueba_binario()
