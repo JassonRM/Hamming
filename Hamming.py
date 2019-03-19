@@ -192,7 +192,5 @@ def arreglar_hamming_impar(binario):
             print("ENTRO ACA2")
             binario[conteo_error - 1] = "1"
             return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
-def prueba_binario():
-    x=arreglar_hamming(['1', '1', '1', '0', '0', '0', '1', '1', '1', '0', '1', '1', '0', '1', '1', '0', '1'],True)
-    print(x)
-prueba_binario()
+
+

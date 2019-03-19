@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Hamming</class>
+ <widget class="QMainWindow" name="Hamming">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,8 +10,14 @@
     <height>720</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Hamming</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -25,7 +31,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">
-      <number>50</number>
+      <number>20</number>
      </property>
      <property name="leftMargin">
       <number>50</number>
@@ -42,38 +48,444 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
-        <number>30</number>
+        <number>15</number>
        </property>
        <property name="leftMargin">
-        <number>50</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>50</number>
+        <number>0</number>
        </property>
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="QLineEdit" name="input"/>
        </item>
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>HEX</string>
+          <string>Paridad:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QRadioButton" name="radioPar">
          <property name="text">
-          <string>BCD</string>
+          <string>Par</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioImpar">
+         <property name="text">
+          <string>Impar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="convertBtn">
+         <property name="text">
+          <string>Convert</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="checkBtn">
+         <property name="text">
+          <string>Check</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget_2"/>
+      <widget class="QLabel" name="hexaLabel">
+       <property name="text">
+        <string>HEX</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget"/>
+      <widget class="QLabel" name="decimalLabel">
+       <property name="text">
+        <string>Decimal</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::AutoText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="bcdLabel">
+       <property name="text">
+        <string>BCD</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QTableWidget" name="hammingTable">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>550</width>
+         <height>200</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>540</width>
+         <height>180</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+       </property>
+       <property name="autoScroll">
+        <bool>false</bool>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="rowCount">
+        <number>7</number>
+       </property>
+       <property name="columnCount">
+        <number>17</number>
+       </property>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderCascadingSectionResizes">
+        <bool>true</bool>
+       </attribute>
+       <row>
+        <property name="text">
+         <string>Datos (sin paridad)</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p2</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p4</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p8</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p16</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>Datos (con paridad)</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>p1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p8</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d5</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d6</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d7</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d8</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d9</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d10</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d11</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p16</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d12</string>
+        </property>
+       </column>
+       <item row="3" column="4">
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter">
+      <widget class="QTableWidget" name="repairTable">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>620</width>
+         <height>180</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>620</width>
+         <height>180</height>
+        </size>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+       </property>
+       <property name="autoScroll">
+        <bool>false</bool>
+       </property>
+       <property name="alternatingRowColors">
+        <bool>false</bool>
+       </property>
+       <property name="rowCount">
+        <number>6</number>
+       </property>
+       <property name="columnCount">
+        <number>18</number>
+       </property>
+       <attribute name="horizontalHeaderCascadingSectionResizes">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderCascadingSectionResizes">
+        <bool>true</bool>
+       </attribute>
+       <row>
+        <property name="text">
+         <string>Datos recibidos</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p2</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p4</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p8</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>p16</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>p1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d1</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d2</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d3</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d4</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p8</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d5</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d6</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d7</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d8</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d9</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d10</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d11</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>p16</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>d12</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Prueba de paridad</string>
+        </property>
+       </column>
+       <item row="3" column="4">
+        <property name="text">
+         <string/>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="errorLabel">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
