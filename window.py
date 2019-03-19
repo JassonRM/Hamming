@@ -42,7 +42,7 @@ class MyWindow(Ui_Hamming):
 
 
     def fillRepairTable(self, result):
-        self.repairTable.clearContents()
+        self.fillReceiveData(result[0])
         if(len(result) > 2):
             self.errorLabel.setText("Error en el bit " + str(result[2]))
             for parity in range(1, 6):
@@ -55,20 +55,6 @@ class MyWindow(Ui_Hamming):
                 self.repairTable.setItem(parity, 17, QtWidgets.QTableWidgetItem("Correcto"))
                 self.errorLabel.setText("No hay errores")
 
-
-        p1 = [0, 2, 4, 6, 8, 10, 12, 14, 16]
-        p2 = [1, 2, 5, 6, 9, 10, 13, 14]
-        p4 = [3, 4, 5, 6, 11, 12, 13, 14]
-        p8 = [7, 8, 9, 10, 11, 12, 13, 14]
-        p16 = [15, 16]
-        full = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-        rows = [full, p1, p2, p4, p8, p16]
-
-        rowNumber = 0
-        for row in rows:
-            for column in row:
-                self.repairTable.setItem(rowNumber, column, QtWidgets.QTableWidgetItem(result[0][column]))
-            rowNumber += 1
 
         self.repairTable.repaint()
 
@@ -100,9 +86,15 @@ class MyWindow(Ui_Hamming):
         input = self.input.text()
         inputList = list(input)
         if(re.fullmatch(regex, input)):
-            result = Hamming.arreglar_hamming(inputList, self.radioPar.isChecked())
-            print(result)
-            self.fillRepairTable(result)
+            try:
+                result = Hamming.arreglar_hamming(inputList, self.radioPar.isChecked())
+                self.fillRepairTable(result)
+            except:
+                self.errorLabel.setText("Existen 2 o mas errores")
+                self.fillReceiveData(inputList)
+                self.repairTable.repaint()
+
+
 
         else:
             msg = QtWidgets.QMessageBox()
@@ -112,3 +104,19 @@ class MyWindow(Ui_Hamming):
             msg.setWindowTitle("Error")
             msg.setStandardButtons(QtWidgets.QMessageBox.Ok)
             msg.exec_()
+
+    def fillReceiveData(self, result):
+        self.repairTable.clearContents()
+        p1 = [0, 2, 4, 6, 8, 10, 12, 14, 16]
+        p2 = [1, 2, 5, 6, 9, 10, 13, 14]
+        p4 = [3, 4, 5, 6, 11, 12, 13, 14]
+        p8 = [7, 8, 9, 10, 11, 12, 13, 14]
+        p16 = [15, 16]
+        full = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+        rows = [full, p1, p2, p4, p8, p16]
+
+        rowNumber = 0
+        for row in rows:
+            for column in row:
+                self.repairTable.setItem(rowNumber, column, QtWidgets.QTableWidgetItem(result[column]))
+            rowNumber += 1
