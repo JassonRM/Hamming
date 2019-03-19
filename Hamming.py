@@ -23,7 +23,6 @@ def calcular_p1(binario,par):
     while(index<len(binario)):
         valor = valor+int(binario[index])
         index+=2
-    print(valor)
     if (valor % 2 == 0):
         if (par):
             return "0"
@@ -112,7 +111,6 @@ def arreglar_hamming_par(binario):
     p3=binario[3] != calcular_p3(binario_ham, True)
     p4=binario[7] !=calcular_p4(binario_ham, True)
     p5 = binario[15]!=calcular_p5(binario_ham,True)
-    print([p1,p2,p3,p4,p5])
     if(p1):
         lista_errores.append(1)
         conteo_error= conteo_error+1
@@ -129,18 +127,13 @@ def arreglar_hamming_par(binario):
         lista_errores.append(5)
         conteo_error = conteo_error + 16
     if(not p1 and not p2 and not p3 and not p4 and not p5):
-        return(binario,"Nu hubo error alguno")
+        return(binario,"No hubo error alguno")
     if (p1 or p2 or p3 or p4 or p5):
-        print("ENTRO ACA")
         x=binario[conteo_error-1]
-        print(conteo_error)
-        print(x)
         if(binario[conteo_error-1]=="1"):
-            print("ENTRO ACA1")
             binario[conteo_error-1]="0"
             return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
         else:
-            print("ENTRO ACA2")
             binario[conteo_error-1]="1"
             return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
 
@@ -180,16 +173,11 @@ def arreglar_hamming_impar(binario):
     if (not p1 and not p2 and not p3 and not p4 and not p5):
         return (binario, "Nu hubo error alguno")
     if (p1 or p2 or p3 or p4 or p5):
-        print("ENTRO ACA")
         x = binario[conteo_error - 1]
-        print(conteo_error)
-        print(x)
         if (binario[conteo_error - 1] == "1"):
-            print("ENTRO ACA1")
             binario[conteo_error - 1] = "0"
             return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
         else:
-            print("ENTRO ACA2")
             binario[conteo_error - 1] = "1"
             return [binario, "Hubo un error en el bit", conteo_error,lista_errores]
 

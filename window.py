@@ -17,6 +17,7 @@ class MyWindow(Ui_Hamming):
         self.convertBtn.clicked.connect(self.convert)
         self.checkBtn.clicked.connect(self.check)
         self.radioPar.setChecked(True)
+        self.copyBtn.clicked.connect(self.copyResult)
 
     def fillHammingTable(self, result):
         self.hammingTable.clearContents()
@@ -69,8 +70,13 @@ class MyWindow(Ui_Hamming):
             self.bcdLabel.setText(conversion.deciBCD(decimal))
 
             result = Hamming.calcular_hamming(input, self.radioPar.isChecked())
-            print(result)
             self.fillHammingTable(result)
+            strResult = ""
+            for char in result:
+                strResult += char
+            self.hammingResult.setText(strResult)
+            self.hammingResult.repaint()
+
         else:
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Critical)
@@ -120,3 +126,7 @@ class MyWindow(Ui_Hamming):
             for column in row:
                 self.repairTable.setItem(rowNumber, column, QtWidgets.QTableWidgetItem(result[column]))
             rowNumber += 1
+
+    def copyResult(self):
+        self.input.setText(self.hammingResult.text())
+        self.input.repaint()
