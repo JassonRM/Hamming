@@ -17,7 +17,6 @@ class MyWindow(Ui_Hamming):
         self.convertBtn.clicked.connect(self.convert)
         self.checkBtn.clicked.connect(self.check)
         self.radioPar.setChecked(True)
-        Hamming.prueba_binario()
 
     def fillHammingTable(self, result):
         self.hammingTable.clearContents()
